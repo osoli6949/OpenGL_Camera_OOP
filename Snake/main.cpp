@@ -40,6 +40,10 @@ int main() {
   while (!W.shouldClose()) {
     W.processInput();
 
+    // background color
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
     // draw
     shaderProgram.use();
     VAO.bind();

@@ -25,6 +25,7 @@ Shader::Shader(GLenum shaderType, string shaderLocation) {
 
 ShaderProgram::ShaderProgram(unsigned int vertex, unsigned int frag)
     : vertexShader(vertex), fragmentShader(frag) {
+  this->programAddress = glCreateProgram();
   int success;
   char infoLog[512];
   glAttachShader(this->programAddress, this->vertexShader);

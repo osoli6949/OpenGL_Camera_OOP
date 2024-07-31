@@ -29,5 +29,6 @@ EBO::EBO(vector<unsigned int> indices) : indices{move(indices)} {
 }
 
 void EBO::draw(GLenum mode, int count, int offset) {
-  glDrawElements(mode, count, GL_UNSIGNED_INT, 0);
+  glDrawElements(mode, count, GL_UNSIGNED_INT,
+                 (void*)(offset * sizeof(unsigned int)));
 }
