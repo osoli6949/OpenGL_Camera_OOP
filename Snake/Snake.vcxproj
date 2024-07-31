@@ -142,13 +142,21 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="objects.cpp" />
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="objects.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="snake.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\fragment_shader.glsl" />
+    <None Include="shaders\vertex_shader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,11 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+// glad should always be included before GLFW
+#include <GLFW/glfw3.h>
 
+#include <fstream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -19,11 +21,12 @@ class Window {
   int width, height;
 
  public:
-  Window(int, int, const char*);
+  Window(int width, int height, const char* title);
   ~Window();
 
   void processInput();
-  virtual void renderLoop();
+  int shouldClose();
+  void swapBuffers();
 
   // callbacks
   void framebuffer_size_callback();

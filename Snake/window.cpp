@@ -44,16 +44,11 @@ void Window::processInput() {
     glfwSetWindowShouldClose(this->window, true);
 }
 
-void Window::renderLoop() {
-  // rendering loop
-  while (!glfwWindowShouldClose(this->window)) {
-    this->processInput();
+int Window::shouldClose() { return glfwWindowShouldClose(this->window); }
 
-    // ...
-
-    glfwPollEvents();
-    glfwSwapBuffers(this->window);
-  }
+void Window::swapBuffers() {
+  glfwPollEvents();
+  glfwSwapBuffers(this->window);
 }
 
 // callbacks
