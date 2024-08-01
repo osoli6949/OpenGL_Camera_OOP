@@ -1,3 +1,5 @@
+#include <Windows.h>
+
 #include "camera.h"
 #include "objects.h"
 #include "shader.h"
@@ -63,8 +65,9 @@ int main() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  // window
-  Window W(WIDTH, HEIGHT, "Snake");
+  // window (with camera)
+  Camera W(WIDTH, HEIGHT, "Snake", vec3(0.0f, 0.0f, 0.0f),
+           vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f);
 
   // objects
   VAO VAO;
@@ -77,10 +80,6 @@ int main() {
   // textures
   Texture container(TEXTURE_PATH_CONTAINER, GL_RGB, GL_TEXTURE0);
   Texture awesomeface(TEXTURE_PATH_FACE, GL_RGBA, GL_TEXTURE1);
-
-  // camera
-  Camera cam(W.getWindow(), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f),
-             0.0f, 0.0f);
 
   // shaders
   Shader vertex(GL_VERTEX_SHADER, VERTEX_SHADER_PATH);
@@ -100,16 +99,12 @@ int main() {
     lastFrame = currentFrame;
 
     // input process & background color
-    W.processInput();
+    W.processInput(deltaTime);
     W.backgroundColor(BACKGROUND_COLOR);
-
-    // camera
-    cam.lookAround(W.getOffset(), true);
-    cam.walkAround(deltaTime);
 
     // MVP matrix
     mat4 model;
-    mat4 view = cam.getView();
+    mat4 view = W.getView();
     mat4 projection =
         perspective(radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
 
@@ -133,8 +128,8 @@ int main() {
       shaderProgram.setUniformMatrix4fv("model", model);
       EBO.draw(GL_TRIANGLES, 36, 0);
     }
-    VAO.unbind();
 
+    glfwPollEvents();
     W.swapBuffers();
   }
 

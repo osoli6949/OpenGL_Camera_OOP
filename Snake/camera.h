@@ -3,10 +3,11 @@
 
 #include "window.h"
 
-class Camera {
+class Camera : public Window {
  protected:
-  // window pointer
-  GLFWwindow* window;
+  // cursor values
+  double lastX, lastY;     // cursor position
+  float xoffset, yoffset;  // cursor movement
 
   // camera angles
   float yaw = -90.0f;
@@ -22,16 +23,19 @@ class Camera {
   glm::vec3 worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
  public:
-  Camera(GLFWwindow* window, glm::vec3 position, glm::vec3 up, float yaw,
-         float pitch);
+  Camera(int width, int height, const char* title, glm::vec3 position,
+         glm::vec3 up, float yaw, float pitch);
   glm::mat4 getView() const {
     return glm::lookAt(this->position, this->position + this->front,
                        this->worldUp);
   }
 
+  void processInput(float deltaTime) override;
   void updateCameraVectors();
-  void walkAround(float deltaTime);
-  void lookAround(glm::vec2 offset, bool constrainPitch);
+  void lookAround(bool constrainPitch);
+
+  // callbacks
+  void mouse_callback(double xpos, double ypos);
 };
 
 #endif  // !CAMERA_H
