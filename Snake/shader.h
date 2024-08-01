@@ -24,6 +24,9 @@ class ShaderProgram {
     glDeleteShader(this->fragmentShader);
   }
   void use() const { glUseProgram(this->programAddress); }
+  void setUniform1i(const std::string& name, int value) const;
+  void setUniform4f(const std::string& name, glm::vec4 value) const;
+  void setUniformMatrix4fv(const std::string& name, glm::mat4 value) const;
 };
 
 #endif
